@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.weather.mapper.WeatherMapper">
+
+	<!-- boolean insert(Weather weather) 添加天气语句配置 -->
+	<insert id="insert" parameterType="weather">
+		insert into weather(day,od21,od22,od23,od24,od25,od26,od27,od28)
+		values(#{day},#{od21},#{od22},#{od23},#{od24},#{od25},#{od26},#{od27},#{od28});
+	</insert>
+	<!-- update(Weather weather) 修改天气对象-->
+	<update id="update" parameterType="weather">
+		update weather set 
+			day = #{day},
+			od21 = #{od21},
+			od22 = #{od22},
+			od23 = #{od23},
+			od24 = #{od24},
+			od25 = #{od25},
+			od26 = #{od26},
+			od27 = #{od27},
+			od28 = #{od28}
+		where day = #{day} and od21 = #{od21};
+	</update>
+	
+	<!-- Weather getByDayAndHour(String day,String hour)
+	根据天气对象的对应的时间（天）和对应的时间点（小时） 获取对应的对象
+	 -->
+	<select id="getByDayAndHour" resultType="weather">
+		select * from weather where day = #{day} and od21 = #{hour};
+	</select>
+	
+	<!-- List<Weather> getOneDayWeather(@Param("start")String start,@Param("end")String end) 
+		获取一天的天气信息
+	-->
+	<select id="getOneDayWeather" resultType="weather">
+		SELECT * FROM weather 
+		WHERE CONCAT(`day`,od21) &lt;= #{end} AND CONCAT(day,od21) &gt;= #{start};
+	</select>
+</mapper>

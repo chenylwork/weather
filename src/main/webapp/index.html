@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript" src="js/jquery-1.4.4.min.js"></script>
+<!-- 新 Bootstrap 核心 CSS 文件 -->
+<link
+	href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css"
+	rel="stylesheet">
+
+<!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+<script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+
+<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+<script
+	src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+</head>
+<body>
+	<img alt="" src="" id="img">
+	<button id="btn">播放</button>
+</body>
+<script>
+var taskName;
+var position = 0;
+var imgArray = [];
+
+$(function(){
+	$.get("./images",function(data){
+		imgArray = eval('(' + data + ')');
+		task();
+	});
+	$("#btn").click(function(){setTask()});
+});
+// 定时任务
+var task = function() {
+	console.log(position);
+	if(position >= imgArray.length) {
+		position = 0;
+		removeTask();
+		console.log("移除定时任务");
+	}
+	$("#img").attr("src","download/"+imgArray[position++]);
+} 
+// 设置定时任务
+var setTask = function() {
+	taskName = setInterval(task,100);
+}
+// 移除定时任务 
+var removeTask = function() {
+	if(taskName != null) {
+		clearInterval(taskName);
+	}
+}
+</script>
+
+<script type="text/javascript">
+/*
+	$(function() {
+		$.ajax({
+			url : "./images",
+			type : "get",
+			async : false,
+			success : function(data) {
+				var fileList = eval('(' + data + ')');
+				console.log(fileList);
+				var initHtml = "";
+				for (i in fileList) {
+					var text = "";
+					if (i == 0) {
+						text = "<div class='item active'>";
+					} else {
+						text = "<div class='item'>";
+					}
+					text += "<img src='download/"+fileList[i]+"' alt='First slide'>";
+					text += "</div>";
+					$(".carousel-inner").append(text);
+				}
+			}
+		});
+	});
+	*/
+</script>
+</html>
