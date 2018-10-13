@@ -49,7 +49,7 @@ public class WeatherServiceImpl implements WeatherService{
 	public List<Weather> getOneDayWeathers() {
 		Date date = new Date();
 		// 小时确定为10
-		date = DateUnit.setDate(date, Calendar.HOUR_OF_DAY, 10);
+		//date = DateUnit.setDate(date, Calendar.HOUR_OF_DAY, 10);
 		String pattern = "yyyyMMddHH";
 		String start = DateUnit.parseString(date, pattern);
 		// 天数加一

@@ -52,8 +52,8 @@
 	<!-- 任务触发器 -->
 	<bean id="weatherTaskTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
 		<property name="jobDetail" ref="weatherTask" />
-		<!-- 每天凌晨1点下载气象信息  -->
-		<property name="cronExpression" value="0 0 1 * * ?" />
+		<!-- 每小时执行一次  -->
+		<property name="cronExpression" value="0 0 */1 * * ?" />
 	</bean>
 	<!-- ******气象信息获取任务调度配置end -->
 	
